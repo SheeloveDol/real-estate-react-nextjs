@@ -2,6 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button, Box, Text, Flex } from '@chakra-ui/react';
 
+import Property from '../components/Property';
+import { baseUrl, fetchApi } from '../utils/fetchApi';
+
+
 const Banner = ({ purpose, title1, title2, desc1, desc2, imageUrl, LinkName, buttonText  }) => (
   <Flex flexWrap="wrap" justifyContent="center" alignItems="center" m="10">
     <Image src={imageUrl} width={500} height={300} alt="banner" />
@@ -16,7 +20,9 @@ const Banner = ({ purpose, title1, title2, desc1, desc2, imageUrl, LinkName, but
   </Flex>
 )
 
-export default function Home() {
+export default function Home({ propertiesForSale, propertiesForRent }) {
+  console.log(propertiesForRent, propertiesForRent);
+
   return (
     <div>
       <h1>Hello World!</h1>
@@ -33,7 +39,7 @@ export default function Home() {
       />
         
       <Flex flexWrap="wrap">
-        {/* here we will fetch the data from api then iterate over them and display them. */}
+        {propertiesForRent.map((property) => <Property  property={property} key={property.id} />)}
       </Flex>
 
       <Banner 
@@ -49,9 +55,23 @@ export default function Home() {
       />
 
       <Flex flexWrap="wrap">
-        {/* here we will fetch the data from api then iterate over them and display them. */}
+        {propertiesForSale.map((property) => <Property  property={property} key={property.id} />)}
       </Flex>
 
     </div>
   )
+}
+
+// how we do api calls with next.js
+export async function getStaticProps() {
+  const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`);
+  const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`);
+
+  //to export the props:
+  return {
+    props: {
+      propertiesForSale: propertyForSale?.hits,
+      propertiesForRent: propertyForRent?.hits,
+    },
+  };
 }
