@@ -21,7 +21,7 @@ const Property = ({ property: { coverPhoto, price, rentFrequency, rooms, title, 
             <Text fontWeight="bold" fontSize="lg">AED {millify(price)}{rentFrequency && `/${rentFrequency}`}</Text>
           </Flex>
           <Box>
-            <Avatar size="sm" src={agency?.logo?.url} />
+            <Avatar size="sm" src={agency.logo.url} /> 
           </Box>
         </Flex>
         <Flex alignItems="center" p="1" justifyContent="space-between" w="250px" color="blue.400" >
@@ -36,3 +36,5 @@ const Property = ({ property: { coverPhoto, price, rentFrequency, rooms, title, 
 )
 
 export default Property; 
+
+// Changed from src={agency?.logo?.url} for the Avatar as it was causing syntax highlighting issues

@@ -25,7 +25,6 @@ export default function Home({ propertiesForSale, propertiesForRent }) {
 
   return (
     <div>
-      <h1>Hello World!</h1>
       <Banner  
         purpose="RENT A HOME"
         title1="Rental Homes for"
@@ -34,9 +33,7 @@ export default function Home({ propertiesForSale, propertiesForRent }) {
         desc2="and More"
         buttonText="Explore Renting"
         LinkName="/search?purpose=for-rent"
-        imageUrl="https://bayut-production.s3.eu-central-1.amazonaws.com/image/145426814/33973352624c48628e41f2ec460faba4
-        "
-      />
+        imageUrl="https://bayut-production.s3.eu-central-1.amazonaws.com/image/145426814/33973352624c48628e41f2ec460faba4"/>
         
       <Flex flexWrap="wrap">
         {propertiesForRent.map((property) => <Property  property={property} key={property.id} />)}
@@ -50,12 +47,10 @@ export default function Home({ propertiesForSale, propertiesForRent }) {
         desc2="and More"
         buttonText="Explore Buying"
         LinkName="/search?purpose=for-sale"
-        imageUrl="https://bayut-production.s3.eu-central-1.amazonaws.com/image/110993385/6a070e8e1bae4f7d8c1429bc303d2008
-        "
-      />
+        imageUrl="https://bayut-production.s3.eu-central-1.amazonaws.com/image/110993385/6a070e8e1bae4f7d8c1429bc303d2008"/>
 
       <Flex flexWrap="wrap">
-        {propertiesForSale.map((property) => <Property  property={property} key={property.id} />)}
+        {propertiesForSale.map((property) => <Property property={property} key={property.id} />)}
       </Flex>
 
     </div>
@@ -67,11 +62,11 @@ export async function getStaticProps() {
   const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`);
   const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`);
 
-  //to export the props:
+  //to export the props:  also changed from propertyForSale?.hits and propertyForRent?.hits
   return {
     props: {
-      propertiesForSale: propertyForSale?.hits,
-      propertiesForRent: propertyForRent?.hits,
+      propertiesForSale: propertyForSale.hits,
+      propertiesForRent: propertyForRent.hits,
     },
   };
 }
