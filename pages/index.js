@@ -21,7 +21,7 @@ const Banner = ({ purpose, title1, title2, desc1, desc2, imageUrl, LinkName, but
 )
 
 export default function Home({ propertiesForSale, propertiesForRent }) {
-  console.log(propertiesForRent, propertiesForRent);
+  // console.log(propertiesForRent, propertiesForRent);
 
   return (
     <div>
